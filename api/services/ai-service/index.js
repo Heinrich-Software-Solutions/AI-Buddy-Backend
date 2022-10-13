@@ -18,7 +18,7 @@ const trainset = join(`${__dirname}../../dataset-service/trained/dataset.json`);
 
 // AI Brain
 
-module.exports = async (lang = "en", training = true) => {
+module.exports = async (lang = "en", training = false) => {
   try {
     const nlp = new NlpManager({ languages: [lang] });
 
