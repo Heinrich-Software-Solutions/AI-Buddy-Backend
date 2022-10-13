@@ -29,9 +29,15 @@ module.exports = async ({ body, requester }, res) => {
     }
 
     ai.then(async (brain) => {
-      const { answer } = await brain.process(question);
+      try {
+        const { answer } = await brain.process(question);
 
-      return res.json({ owner: requester.owner, answer });
+        return res.json({ owner: requester.owner, answer });
+      } catch (error) {
+        res.status(500);
+        logger.error(error.message);
+        return res.json({ msg: "internal server error" });
+      }
     });
   } catch (error) {
     res.status(500);
